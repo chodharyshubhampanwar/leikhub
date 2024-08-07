@@ -1,6 +1,5 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import serverless from "serverless-http";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/router/authRouter.js";
 import courseRouter from "./src/router/courseRouter.js";
@@ -22,7 +21,7 @@ app.use(
 
 connectDB()
   .then(() => {
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 8080;
     app.listen(port, () => console.log(`Server started on port ${port}`));
   })
   .catch((err) => {
@@ -34,5 +33,3 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api", authRouter, courseRouter);
-
-export const handler = serverless(app);
